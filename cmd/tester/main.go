@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/kyokan/eth2-tests/cmd/tester/genesis"
-	"github.com/kyokan/eth2-tests/cmd/tester/network"
+	"github.com/ethereum/eth2-client-tests/cmd/tester/genesis"
+	"github.com/ethereum/eth2-client-tests/cmd/tester/network"
 	"github.com/urfave/cli"
 )
 

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kyokan/eth2-tests/tester/genesis"
+	"github.com/ethereum/eth2-client-tests/tester/genesis"
 	"github.com/urfave/cli"
 )
 

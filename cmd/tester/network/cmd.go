@@ -3,8 +3,8 @@ package network
 import (
 	"log"
 
-	"github.com/kyokan/eth2-tests/tester/genesis"
-	"github.com/kyokan/eth2-tests/tester/network"
+	"github.com/ethereum/eth2-client-tests/tester/genesis"
+	"github.com/ethereum/eth2-client-tests/tester/network"
 	"github.com/urfave/cli"
 )
 
