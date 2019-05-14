@@ -20,3 +20,5 @@ clean:
 docker:
 	docker build -t lighthouse:latest -f dockerfiles/lighthouse.Dockerfile .
 	docker build -t prysm:latest -f dockerfiles/prysm.Dockerfile .
+	docker build -t artemis:latest -f dockerfiles/artemis.Dockerfile .
+

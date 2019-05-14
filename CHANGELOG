@@ -1,3 +1,4 @@
+* Add Artemis support
 * Add support for mounting volumes on nodes of the tesnet
 * Add build for dockerfiles
 * Add dockerfiles for Prysm and Lighthouse
