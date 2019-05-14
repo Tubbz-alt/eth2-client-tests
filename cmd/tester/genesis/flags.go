@@ -18,4 +18,9 @@ var (
 		Usage: "Number of nodes to deploy",
 		Value: 3,
 	}
+	VolumesFlag = cli.StringSliceFlag{
+		Name:  "volume",
+		Usage: "Volumes to be mounted on all nodes. This flag can be used multiple times.",
+		Value: nil,
+	}
 )

@@ -12,8 +12,9 @@ type TestnetParameter struct {
 }
 
 type TestnetResource struct {
-	Cpus   string
-	Memory string
+	Cpus    string
+	Memory  string
+	Volumes *[]string
 }
 
 type Testnet struct {
@@ -25,14 +26,14 @@ type Testnet struct {
 	Params     TestnetParameter
 }
 
-func DeployTestnet(blockchain string, images []string, nodes int, output string) {
+func DeployTestnet(blockchain string, images []string, volumes *[]string, nodes int, output string) {
 	testNet := Testnet{
 		[]int{1},
 		blockchain,
 		nodes,
 		images,
 		[]TestnetResource{
-			{"", ""},
+			{"", "", volumes},
 		},
 		TestnetParameter{},
 	}
