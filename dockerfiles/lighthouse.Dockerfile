@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update &&\
 	apt-get install -y apt-utils expect git git-extras software-properties-common \
 	inetutils-tools wget ca-certificates curl build-essential libssl-dev golang-go \
-  	pkg-config zip g++ zlib1g-dev unzip python
+  	pkg-config zip g++ zlib1g-dev unzip python tmux openssh-server iperf3
 
 RUN apt-get install -y clang libclang-dev cmake build-essential git unzip autoconf libtool awscli
 

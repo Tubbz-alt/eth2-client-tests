@@ -1,3 +1,4 @@
+* Add tmux, iperf3 and openssh-server to lighthouse and prysm images
 * Add Artemis support
 * Add support for mounting volumes on nodes of the tesnet
 * Add build for dockerfiles
