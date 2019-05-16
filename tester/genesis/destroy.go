@@ -14,6 +14,6 @@ func DestroyTestnet(testnetId string) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		log.Fatal("There was an error deleting the testnet", err)
+		log.Fatalf("There was an error deleting the testnet: %d", resp.StatusCode)
 	}
 }

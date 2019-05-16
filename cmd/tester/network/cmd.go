@@ -30,5 +30,6 @@ func touchNetwork(ctx *cli.Context) {
 		if err != nil {
 			log.Fatal("Error connecting to network: ", err)
 		}
+		log.Printf("Node %s is accessible", node.Ip)
 	}
 }

@@ -1,3 +1,4 @@
+* Add more logging output to the network check and testnet deletion error handling
 * Add ability to delete a testnet
 * Add ability to specify ports to open for each node of the testnet
 * Add tmux, iperf3 and openssh-server to lighthouse and prysm images
