@@ -23,6 +23,15 @@ var (
 				Flags:       []cli.Flag{},
 			},
 			cli.Command{
+				Name:        "destroy",
+				Usage:       "Destroys a tesnet",
+				Description: `Destroys the nodes of a testnet`,
+				Action:      destroyTestnet,
+				Flags:       []cli.Flag{
+					TesnetIdFlag,
+				},
+			},
+			cli.Command{
 				Name:        "testnet",
 				Usage:       "Deploys a new testnet",
 				Description: `Deploys a new testnet to genesis`,
@@ -38,6 +47,11 @@ var (
 		},
 	}
 )
+
+func destroyTestnet(ctx *cli.Context) {
+	testnet := ctx.String(TesnetIdFlag.Name)
+	genesis.DestroyTestnet(testnet)
+}
 
 func deployTestnet(ctx *cli.Context) {
 	blockchain := ctx.String(BlockchainFlag.Name)

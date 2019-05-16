@@ -28,4 +28,8 @@ var (
 		Usage: "Ports to be exposed on nodes. This flag can be used multiple times.",
 		Value: nil,
 	}
+	TesnetIdFlag = cli.StringFlag{
+		Name: "testnetId",
+		Usage: "ID of the testnet to destroy",
+	}
 )

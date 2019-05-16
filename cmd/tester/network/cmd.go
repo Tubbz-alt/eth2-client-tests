@@ -16,6 +16,7 @@ var (
 		Action:      touchNetwork,
 		Flags: []cli.Flag{
 			TestnetName,
+			Port,
 		},
 	}
 )
