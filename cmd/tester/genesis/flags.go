@@ -23,4 +23,9 @@ var (
 		Usage: "Volumes to be mounted on all nodes. This flag can be used multiple times.",
 		Value: nil,
 	}
+	PortsFlag = cli.StringSliceFlag{
+		Name:  "ports",
+		Usage: "Ports to be exposed on nodes. This flag can be used multiple times.",
+		Value: nil,
+	}
 )
