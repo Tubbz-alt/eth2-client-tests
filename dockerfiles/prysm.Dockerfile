@@ -1,8 +1,7 @@
 FROM ubuntu:18.04
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update &&\
-	apt-get install -y apt-utils expect git git-extras software-properties-common \
+RUN apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils expect git git-extras software-properties-common \
 	inetutils-tools wget ca-certificates curl build-essential libssl-dev golang-go \
   	pkg-config zip g++ zlib1g-dev unzip python tmux openssh-server iperf3
 
@@ -17,5 +16,10 @@ RUN bazel build //beacon-chain:beacon-chain
 FROM ubuntu:18.04
 WORKDIR /
 COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_stripped/beacon-chain .
+
+RUN apt-get update && \
+	DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils expect git git-extras software-properties-common \
+	inetutils-tools wget ca-certificates curl build-essential libssl-dev golang-go \
+  	pkg-config zip g++ zlib1g-dev unzip python tmux openssh-server iperf3
 
 ENTRYPOINT ["/beacon-chain"]
