@@ -1,7 +1,7 @@
 pipeline {
   agent any
   parameters {
-    int(name: 'tcpPort', defaultValue: 12000, description: 'Port to run')
+    string(name: 'tcpPort', defaultValue: '12000', description: 'Port to run')
     string(name: 'chain', defaultValue: 'prysm', description: 'Blockchain to run')
   }
   stages {
