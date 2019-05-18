@@ -15,7 +15,7 @@ RUN git clone https://github.com/google/protobuf.git && \
         make -j4 && \
         make  -j4 install && \
         ldconfig && \
-        make -j4 clean && \cc
+        make -j4 clean && \
         cd .. && \
         rm -r protobuf
 
