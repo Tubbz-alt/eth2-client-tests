@@ -3,13 +3,14 @@ pipeline {
   parameters {
     string(name: 'tcpPort', defaultValue: '12000', description: 'Port to run')
     string(name: 'chain', defaultValue: 'prysm', description: 'Blockchain to run')
+    string(name: 'numNodes', defaultValue: '4', description: 'Number of nodes')
   }
   stages {
     stage('Set up') {
       steps {
         println "Set up ${params.chain}"
         sh "rm -Rf ${params.chain};mkdir ${params.chain}"
-        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes 3 --volume `pwd`/${params.chain}:/var/output --file ./${params.chain}/testnetId"
+        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --volume `pwd`/${params.chain}:/var/output --file ./${params.chain}/testnetId"
         sleep 10
         sh "docker ps"
       }
