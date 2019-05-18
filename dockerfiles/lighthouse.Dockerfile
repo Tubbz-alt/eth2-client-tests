@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update &&\
 	apt-get install -y apt-utils expect git git-extras software-properties-common \
 	inetutils-tools wget ca-certificates curl build-essential libssl-dev golang-go \
-  	pkg-config zip g++ zlib1g-dev unzip python tmux openssh-server iperf3
+  	pkg-config zip g++ zlib1g-dev unzip python tmux openssh-server iperf3 lsof
 
 RUN apt-get install -y clang libclang-dev cmake build-essential git unzip autoconf libtool awscli
 
@@ -15,7 +15,7 @@ RUN git clone https://github.com/google/protobuf.git && \
         make -j4 && \
         make  -j4 install && \
         ldconfig && \
-        make -j4 clean && \
+        make -j4 clean && \cc
         cd .. && \
         rm -r protobuf
 

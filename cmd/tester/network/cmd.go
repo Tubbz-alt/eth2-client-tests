@@ -1,10 +1,11 @@
 package network
 
 import (
+	"fmt"
+	"github.com/ethereum/eth2-client-tests/tester/docker"
 	"log"
 
 	"github.com/ethereum/eth2-client-tests/tester/genesis"
-	"github.com/ethereum/eth2-client-tests/tester/network"
 	"github.com/urfave/cli"
 )
 
@@ -26,10 +27,12 @@ func touchNetwork(ctx *cli.Context) {
 	port := ctx.Int(Port.Name)
 	nodes := genesis.GetNodes(testNet)
 	for _, node := range nodes {
-		err := network.Connect(node.Ip, port)
+		stdout, stderr, err := docker.Exec(fmt.Sprintf("whiteblock-node%d", node.LocalId), []string{"lsof", "-i", fmt.Sprintf(":%d", port)})
+		//stdout, stderr, err  := docker.ExecScript(fmt.Sprintf("whiteblock-node%d", node.LocalId), "network.sh", testNetwork, "bash network.sh")
+		fmt.Printf("STDOUT: %s", stdout)
+		fmt.Printf("STDERR: %s", stderr)
 		if err != nil {
 			log.Fatal("Error connecting to network: ", err)
 		}
-		log.Printf("Node %s is accessible", node.Ip)
 	}
 }

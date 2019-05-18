@@ -8,7 +8,7 @@ var (
 		Usage: "ID of the testnet to target",
 	}
 	Port = cli.IntFlag{
-		Name:  "Port",
+		Name:  "port",
 		Usage: "Port served by all nodes in the testnet",
 		Value: 9000,
 	}

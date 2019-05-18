@@ -1,3 +1,5 @@
+* Add lsof to all containers
+* Add ability to execute commands inside nodes.
 * Move the sanity check for one chain to a Jenkinsfile.
 * Add more logging output to the network check and testnet deletion error handling
 * Add ability to delete a testnet

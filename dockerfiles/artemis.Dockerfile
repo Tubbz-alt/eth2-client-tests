@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential maven libsodium-dev \
     tmux wget iperf3 curl apt-utils iputils-ping expect npm git git-extras \
-    software-properties-common openssh-server openjdk-11-jre-headless
+    software-properties-common openssh-server openjdk-11-jre-headless lsof
 
 # get artemis
 RUN git clone --recursive https://github.com/PegaSysEng/artemis.git
