@@ -1,3 +1,4 @@
+* Make set up time a configuration parameter
 * Add a configurable numNodes parameter to the build
 * Make port configurable in sanity Jenkins build
 * Add lsof to all containers
