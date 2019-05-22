@@ -14,12 +14,12 @@ See https://www.github.com/Whiteblock/genesis to set up a testnet server.
 
 ### Create a testnet
 
-`tester genesis tesnet --blockchain [prysm|]`
+`tester genesis tesnet --blockchain [prysm|artemis|lighthouse]`
 
 Optionally, you can indicate a file to store the testnet ID.
 
 
-`tester genesis tesnet --blockchain [prysm|] -f out`
+`tester genesis tesnet --blockchain [prysm|artemis|lighthouse] -f out`
 
 ### Check all nodes in the testnet can serve traffic on a port
 
@@ -27,10 +27,11 @@ Optionally, you can indicate a file to store the testnet ID.
 
 # Chains supported
 
-| Name | Image                        | Repository                              |
-|------|------------------------------|-----------------------------------------|
-|Prysm |gcr.io/whiteblock/prysm:master| https://github.com/prysmaticlabs/prysm  | 
-
+| Name     | Image                           |
+|----------|---------------------------------|
+|Prysm     |dockerfiles/prysm.Dockerfile     |
+|Artemis   |dockerfiles/artemis.Dockerfile   |
+|Lighthouse|dockerfiles/lighthouse.Dockerfile|
 
 # Contributing
 
