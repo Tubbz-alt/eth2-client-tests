@@ -16,7 +16,7 @@ var (
 	NumberOfNodesFlag = cli.IntFlag{
 		Name:  "numNodes",
 		Usage: "Number of nodes to deploy",
-		Value: 3,
+		Value: 4,
 	}
 	VolumesFlag = cli.StringSliceFlag{
 		Name:  "volume",
