@@ -9,22 +9,23 @@ import (
 )
 
 type TestnetParameter struct {
+	OutputFile string `json:"outputFile"`
 }
 
 type TestnetResource struct {
-	Cpus    string
-	Memory  string
-	Volumes []string
-	Ports   []string
+	Cpus    string   `json:"cpus"`
+	Memory  string   `json:"memory"`
+	Volumes []string `json:"volumes"`
+	Ports   []string `json:"ports"`
 }
 
 type Testnet struct {
-	Servers    []int
-	Blockchain string
-	Nodes      int
-	Images     []string
-	Resources  []TestnetResource
-	Params     TestnetParameter
+	Servers    []int             `json:"servers"`
+	Blockchain string            `json:"blockchain"`
+	Nodes      int               `json:"nodes"`
+	Images     []string          `json:"images"`
+	Resources  []TestnetResource `json:"resources"`
+	Params     TestnetParameter  `json:"params"`
 }
 
 func DeployTestnet(blockchain string, images []string, volumes []string, ports []string, nodes int, output string) {
@@ -36,7 +37,9 @@ func DeployTestnet(blockchain string, images []string, volumes []string, ports [
 		[]TestnetResource{
 			{"", "", volumes, ports},
 		},
-		TestnetParameter{},
+		TestnetParameter{
+			"/var/output/output.json",
+		},
 	}
 	json, err := json.Marshal(testNet)
 	if err != nil {
