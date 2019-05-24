@@ -32,6 +32,7 @@ Optionally, you can indicate a file to store the testnet ID.
 |Prysm     |dockerfiles/prysm.Dockerfile     |
 |Artemis   |dockerfiles/artemis.Dockerfile   |
 |Lighthouse|dockerfiles/lighthouse.Dockerfile|
+|Lodestar  |dockerfiles/lodestar.Dockerfile  |
 
 # Contributing
 
