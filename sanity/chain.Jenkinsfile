@@ -17,10 +17,17 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Test network connectivity') {
       steps {
-        println "Test ${params.chain}"
+        println "Test network connectivity for ${params.chain}"
         sh "~/bin/tester network --testnet `cat ./${params.chain}/testnetId` --port ${params.tcpPort}"
+      }
+    }
+
+    stage('Test sync') {
+      steps {
+        println "Test sync for ${params.chain}"
+
       }
     }
 

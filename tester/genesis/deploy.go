@@ -10,6 +10,7 @@ import (
 
 type TestnetParameter struct {
 	OutputFile string `json:"outputFile"`
+	ProviderType string `json:"providerType"`
 }
 
 type TestnetResource struct {
@@ -39,6 +40,7 @@ func DeployTestnet(blockchain string, images []string, volumes []string, ports [
 		},
 		TestnetParameter{
 			"/var/output/output.json",
+			"PROMETHEUS",
 		},
 	}
 	json, err := json.Marshal(testNet)

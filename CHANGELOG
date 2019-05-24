@@ -1,3 +1,4 @@
+* Add support for prometheus
 * Add lodestar to supported images.
 * Trim TODO file.
 * Fix README with the latest developments.
