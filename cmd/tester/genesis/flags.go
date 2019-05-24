@@ -29,7 +29,7 @@ var (
 		Value: nil,
 	}
 	TesnetIdFlag = cli.StringFlag{
-		Name: "testnetId",
+		Name:  "testnetId",
 		Usage: "ID of the testnet to destroy",
 	}
 )

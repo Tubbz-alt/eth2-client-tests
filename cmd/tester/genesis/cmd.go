@@ -27,7 +27,7 @@ var (
 				Usage:       "Destroys a tesnet",
 				Description: `Destroys the nodes of a testnet`,
 				Action:      destroyTestnet,
-				Flags:       []cli.Flag{
+				Flags: []cli.Flag{
 					TesnetIdFlag,
 				},
 			},

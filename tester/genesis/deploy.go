@@ -9,7 +9,7 @@ import (
 )
 
 type TestnetParameter struct {
-	OutputFile string `json:"outputFile"`
+	OutputFile   string `json:"outputFile"`
 	ProviderType string `json:"providerType"`
 }
 
