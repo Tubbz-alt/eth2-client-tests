@@ -1,3 +1,4 @@
+* Move prometheus instrumentation port to a parameter of the testnet
 * Add support for prometheus
 * Add lodestar to supported images.
 * Trim TODO file.
