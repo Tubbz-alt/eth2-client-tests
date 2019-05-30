@@ -24,10 +24,10 @@ pipeline {
       }
     }
 
-    stage('Test sync') {
+    stage('Test Prometheus reporting') {
       steps {
-        println "Test sync for ${params.chain}"
-
+        println "Test prometheus reporting for ${params.chain}"
+        sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId`"
       }
     }
 

@@ -28,7 +28,7 @@ var (
 				Description: `Destroys the nodes of a testnet`,
 				Action:      destroyTestnet,
 				Flags: []cli.Flag{
-					TesnetIdFlag,
+					TestnetName,
 				},
 			},
 			cli.Command{
@@ -49,7 +49,7 @@ var (
 )
 
 func destroyTestnet(ctx *cli.Context) {
-	testnet := ctx.String(TesnetIdFlag.Name)
+	testnet := ctx.String(TestnetName.Name)
 	genesis.DestroyTestnet(testnet)
 }
 

@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/ethereum/eth2-client-tests/cmd/tester/prometheus"
+
 	"github.com/ethereum/eth2-client-tests/cmd/tester/genesis"
 	"github.com/ethereum/eth2-client-tests/cmd/tester/network"
 	"github.com/urfave/cli"
@@ -17,6 +19,7 @@ func main() {
 	app.Commands = []cli.Command{
 		genesis.GenesisCommand,
 		network.NetworkCommand,
+		prometheus.PrometheusCommand,
 	}
 	err := app.Run(os.Args)
 	if err != nil {

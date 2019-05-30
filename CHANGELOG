@@ -1,3 +1,7 @@
+* Added a step to sanity check to ensure testnet nodes are reporting to Prometheus
+* Added a new prometheus command that checks nodes are reporting correctly to Prometheus
+* Added a new prometheus command that queries prometheus
+* Changed testnetId to testnet in the destroy command
 * Move prometheus instrumentation port to a parameter of the testnet
 * Add support for prometheus
 * Add lodestar to supported images.
