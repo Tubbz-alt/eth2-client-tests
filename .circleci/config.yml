@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12
-      - working_directory: /go/src/github.com/ethereum/eth2-client-tests
+    working_directory: /go/src/github.com/ethereum/eth2-client-tests
     steps:
       - checkout
       - run: make
