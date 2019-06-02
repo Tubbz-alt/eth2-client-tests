@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/ethereum/eth2-client-tests/tester/genesis"
 	"github.com/urfave/cli"
@@ -55,10 +56,14 @@ func destroyTestnet(ctx *cli.Context) {
 
 func deployTestnet(ctx *cli.Context) {
 	blockchain := ctx.String(BlockchainFlag.Name)
+	logFolder := ctx.String(LogFolderFlag.Name)
 	output := ctx.String(FileOutputFlag.Name)
 	volumes := ctx.StringSlice(VolumesFlag.Name)
 	ports := ctx.StringSlice(PortsFlag.Name)
-	genesis.DeployTestnet(blockchain, genesis.Images[blockchain], volumes, ports, ctx.Int(NumberOfNodesFlag.Name), output)
+	if (logFolder != "") {
+		os.MkdirAll(logFolder, 0755)
+	}
+	genesis.DeployTestnet(blockchain, logFolder, genesis.Images[blockchain], volumes, ports, ctx.Int(NumberOfNodesFlag.Name), output)
 }
 
 func testGenesisAvailable(ctx *cli.Context) {

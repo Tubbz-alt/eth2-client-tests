@@ -10,8 +10,13 @@ var (
 	}
 	BlockchainFlag = cli.StringFlag{
 		Name:  "blockchain",
-		Usage: "Blockchain ",
+		Usage: "[artemis|lighthouse|lodestar|prysm]",
 		Value: "prysm",
+	}
+	LogFolderFlag = cli.StringFlag{
+		Name: "logFolder",
+		Usage: "/var/log/testnet123",
+		Value: "/var/log/testnet",
 	}
 	NumberOfNodesFlag = cli.IntFlag{
 		Name:  "numNodes",
