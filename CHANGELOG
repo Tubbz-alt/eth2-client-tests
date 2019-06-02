@@ -1,3 +1,4 @@
+* Add a license and test badge to the project.
 * Clean up Makefile - make it work with a new checkout
 * Add basic circleci CI configuration
 * Allow to mount a volume for each container of the testnet so we can push logs to it for comparison purposes.
