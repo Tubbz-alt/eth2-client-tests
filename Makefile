@@ -2,16 +2,16 @@ CURDIR = $(shell pwd)
 GOBIN = $(CURDIR)/build/bin
 GO ?= latest
 
-.PHONY: all deploy tester docker
+.PHONY: all tester docker
 
 ifndef VERBOSE
 .SILENT:
 endif
 
-all: deploy tester
+all: tester
 
 tester:
-	cd cmd/tester && go build -v -o ../../build/bin/tester
+	cd cmd/tester && go get && go build -v -o ../../build/bin/tester
 	@echo "Done building."
 	@echo "Run \"$(GOBIN)/tester\" to run tests."
 
