@@ -66,6 +66,7 @@ func WriteReport(reportName string, testReports []TestReport, stdout string, std
 	if err != nil {
 		log.Fatalf("Error creating template: %v", err)
 	}
+	log.Info("Writing report " + outputFilePath)
 	f, err := os.Create(outputFilePath)
 	defer f.Close()
 	w := bufio.NewWriter(f)
