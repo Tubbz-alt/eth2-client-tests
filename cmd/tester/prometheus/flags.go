@@ -15,4 +15,8 @@ var (
 		Name:  "pretty",
 		Usage: "Pretty print",
 	}
+	TestOutputFile = cli.StringFlag{
+		Name:  "testoutput",
+		Usage: "JUnit XML output file",
+	}
 )

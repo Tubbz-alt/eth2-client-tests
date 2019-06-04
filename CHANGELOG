@@ -1,3 +1,4 @@
+* Add junit-style reporting for Prometheus and network connectivity
 * Add junit-style reporting for tests
 * Add a consensus test utility to the project.
 * Add a license and test badge to the project.

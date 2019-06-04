@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/ethereum/eth2-client-tests/tester/genesis"
+	"github.com/ethereum/eth2-client-tests/tester/report"
 
 	"github.com/ethereum/eth2-client-tests/tester/prometheus"
 	"github.com/urfave/cli"
@@ -35,6 +36,7 @@ var (
 				Action:      checkPrometheusUp,
 				Flags: []cli.Flag{
 					TestnetName,
+					TestOutputFile,
 				},
 			},
 		},
@@ -69,9 +71,23 @@ func checkPrometheusUp(ctx *cli.Context) {
 		}
 	}
 	nodes := genesis.GetNodes(testnet)
+
+	var message string
 	if counter != len(nodes) {
-		log.Fatalf("Not all nodes are reporting being up. %d/%d", counter, len(nodes))
+		message = fmt.Sprintf("Not all nodes are reporting being up. %d/%d", counter, len(nodes))
 	} else {
-		log.Println("All nodes reporting")
+		message = fmt.Sprintf("All nodes reporting")
+	}
+	log.Println(message)
+
+	testReportOutput := ctx.String(TestOutputFile.Name)
+	if testReportOutput != "" {
+		//testReports []TestReport, stdout string, stderr string, outputFilePath string)
+		report.WriteReport("prometheus-up", []report.TestReport{
+			report.TestReport{Name: "prometheus-up",
+				Message: message,
+				Failed:  counter != len(nodes),
+				Logs:    ""},
+		}, "", "", testReportOutput)
 	}
 }

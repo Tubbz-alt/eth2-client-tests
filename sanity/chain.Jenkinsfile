@@ -20,16 +20,16 @@ pipeline {
     stage('Test network connectivity') {
       steps {
         println "Test network connectivity for ${params.chain}"
-        sh "~/bin/tester network --testnet `cat ./${params.chain}/testnetId` --port ${params.tcpPort}"
+        sh "~/bin/tester network --testnet `cat ./${params.chain}/testnetId` --port ${params.tcpPort}  --testoutput reports/${params.chain}-network.xml"
       }
     }
 
-//    stage('Test Prometheus reporting') {
-//      steps {
-//        println "Test prometheus reporting for ${params.chain}"
-//        sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId`"
-//      }
-//    }
+    stage('Test Prometheus reporting') {
+      steps {
+        println "Test prometheus reporting for ${params.chain}"
+        sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId` --testoutput reports/${params.chain}-prometheus.xml"
+      }
+    }
 
     stage('Test Consensus') {
           steps {

@@ -12,4 +12,8 @@ var (
 		Usage: "Port served by all nodes in the testnet",
 		Value: 9000,
 	}
+	TestOutputFile = cli.StringFlag{
+		Name:  "testoutput",
+		Usage: "JUnit XML output file",
+	}
 )
