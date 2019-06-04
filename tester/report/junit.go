@@ -52,7 +52,7 @@ func WriteReport(reportName string, testReports []TestReport, stdout string, std
 		`<?xml version="1.0" encoding="UTF-8" ?> 
       <testsuite id="{{.Id}}" name="{{.Name}}" tests="{{.TestsCount}}" failures="{{.FailuresCount}}" time="0">
          {{range $i, $report := .TestReports}}
-         <testcase name="{{$report.Name}}" time="0">
+         <testcase name="{{$report.Name}}" classname="{{$report.Name}}" time="0">
             {{ if $report.Failed }}
             <failure message="{{$report.Message}}" type="ERROR">
               {{$report.Logs}}
