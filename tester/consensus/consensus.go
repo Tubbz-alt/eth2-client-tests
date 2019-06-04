@@ -102,10 +102,19 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 	testReports := []report.TestReport{}
 	stdout := []string{}
 	failed := false
+	colSizes := []int{}
 	for epochIndex, epochMatch := range valuesCaptured {
 		var firstEntry string
-		stdout = append(stdout, strings.Join(epochMatch, ","))
+		stdout = append(stdout, strings.Join(epochMatch, "|"))
 		for nodeIndex, epochEntry := range epochMatch {
+			if nodeIndex >= len(colSizes) {
+				colSizes = append(colSizes, len(epochEntry))
+			} else {
+				if len(epochEntry) > colSizes[nodeIndex] {
+					colSizes[nodeIndex] = len(epochEntry)
+				}
+			}
+
 			if firstEntry == "" {
 				firstEntry = epochEntry
 			} else {
@@ -128,6 +137,14 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 			}
 		}
 	}
+	sum := len(colSizes) + 1
+	header := "|"
+	for _, colSize := range colSizes {
+		sum += colSize
+		header += strings.Repeat(" ", colSize) + "|"
+	}
+
+	stdout = append([]string{header, strings.Repeat("-", sum)}, stdout...)
 
 	return failed, testReports, strings.Join(stdout, "\n")
 }
