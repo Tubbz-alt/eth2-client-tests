@@ -35,7 +35,7 @@ pipeline {
           steps {
             println "Test prometheus reporting for ${params.chain}"
             sh "~/bin/tester consensus --type finalized_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_block_root.xml"
-            sh "~/bin/tester consensus --type finalized_block_state --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_block_state.xml"
+            sh "~/bin/tester consensus --type finalized_state_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_state_root.xml"
             sh "~/bin/tester consensus --type justified_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_block_root.xml"
             sh "~/bin/tester consensus --type justified_block_state --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_block_state.xml"
           }
@@ -48,5 +48,10 @@ pipeline {
       }
     }
 
+  }
+  post {
+    always {
+      junit 'reports/*.xml'
+    }
   }
 }
