@@ -4,7 +4,7 @@ pipeline {
     string(name: 'tcpPort', defaultValue: '12000', description: 'Port to run')
     string(name: 'chain', defaultValue: 'prysm', description: 'Blockchain to run')
     string(name: 'numNodes', defaultValue: '4', description: 'Number of nodes')
-    string(name: 'setUpTime', defaultValue: '20', description: 'Seconds to wait before testing testnet')
+    string(name: 'setUpTime', defaultValue: '600', description: 'Seconds to wait before testing testnet')
   }
   stages {
     stage('Set up') {
@@ -37,7 +37,7 @@ pipeline {
             sh "~/bin/tester consensus --type finalized_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_block_root.xml"
             sh "~/bin/tester consensus --type finalized_state_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_state_root.xml"
             sh "~/bin/tester consensus --type justified_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_block_root.xml"
-            sh "~/bin/tester consensus --type finalized_state_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_state_root.xml"
+            sh "~/bin/tester consensus --type justified_state_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_state_root.xml"
           }
         }
 
