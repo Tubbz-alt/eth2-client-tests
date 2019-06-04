@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/ethereum/eth2-client-tests/tester/consensus"
 	"github.com/urfave/cli"
@@ -20,7 +21,6 @@ var (
 			Type,
 			BlockchainFlag,
 			TestOutputFile,
-
 		},
 	}
 )
@@ -34,8 +34,11 @@ func consensusTest(cli *cli.Context) {
 
 	files := []string{}
 	for _, fileInfo := range fileInfos {
-		files = append(files, filepath.Join(folder, fileInfo.Name()))
+		if strings.HasSuffix(fileInfo.Name(), ".log") {
+			files = append(files, filepath.Join(folder, fileInfo.Name()))
+		}
 	}
+
 	switch cli.String(Type.Name) {
 	case "finalized_block_root":
 		consensus.CheckFinalizedBlockRoot(cli.String(TestOutputFile.Name), cli.String(BlockchainFlag.Name), files)

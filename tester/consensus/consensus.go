@@ -2,22 +2,33 @@ package consensus
 
 import (
 	"fmt"
-	"github.com/ethereum/eth2-client-tests/tester/report"
-	"github.com/prometheus/common/log"
 	"io/ioutil"
 	"regexp"
 	"strings"
+
+	"github.com/ethereum/eth2-client-tests/tester/report"
+	"github.com/prometheus/common/log"
 )
 
 const artemisFinalizedBlockRootRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastFinalizedBlockRoot>.*?)\""
-const artemisFinalizedBlockStateRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastFinalizedBlockState>.*?)\""
+const artemisFinalizedStateRootRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastFinalizedBlockState>.*?)\""
 const artemisJustifiedBlockRootRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastJustifiedBlockRoot>.*?)\""
-const artemisJustifiedBlockStateRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastJustifiedBlockState>.*?)\""
+const artemisJustifiedStateRootRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastJustifiedBlockState>.*?)\""
 
+const prysmFinalizedBlockRootRegexp = "TEST_EPOCH.*\"epoch\":(?P<epoch>\\d+?).*\"block_root\":\"(?P<lastFinalizedBlockRoot>.*?)\""
 
 func CheckFinalizedBlockRoot(testReportOutput string, blockchain string, files []string) {
 	log.Info("entering check finalized block root")
-	failed, testReports, stdout := checkLogs(artemisFinalizedBlockRootRegexp, files, testReportOutput)
+	var matchExpression string
+	switch blockchain {
+	case "artemis":
+		matchExpression = artemisFinalizedBlockRootRegexp
+	case "prysm":
+		matchExpression = ""
+	default:
+		log.Fatalf("Unsupported blockchain %s", blockchain)
+	}
+	failed, testReports, stdout := checkLogs(matchExpression, files, testReportOutput)
 	if failed {
 		log.Info("Block roots did not match")
 	} else {
@@ -28,11 +39,9 @@ func CheckFinalizedBlockRoot(testReportOutput string, blockchain string, files [
 	}
 }
 
-
-
 func CheckFinalizedStateRoot(testReportOutput string, blockchain string, files []string) {
 	log.Info("entering check finalized block state")
-	failed, testReports, stdout := checkLogs(artemisFinalizedBlockStateRegexp, files, testReportOutput)
+	failed, testReports, stdout := checkLogs(artemisFinalizedStateRootRegexp, files, testReportOutput)
 	if failed {
 		log.Info("Block states did not match")
 	} else {
@@ -58,7 +67,7 @@ func CheckJustifiedBlockRoot(testReportOutput string, blockchain string, files [
 
 func CheckJustifiedStateRoot(testReportOutput string, blockchain string, files []string) {
 	log.Info("entering check justified block state")
-	failed, testReports, stdout := checkLogs(artemisJustifiedBlockStateRegexp, files, testReportOutput)
+	failed, testReports, stdout := checkLogs(artemisJustifiedStateRootRegexp, files, testReportOutput)
 	if failed {
 		log.Info("Block states did not match")
 	} else {
@@ -72,20 +81,20 @@ func CheckJustifiedStateRoot(testReportOutput string, blockchain string, files [
 func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string) (bool, []report.TestReport, string) {
 	r := regexp.MustCompile(exprCaptureRegexp)
 
-	totalBlockRoots := [][]string{}
+	valuesCaptured := [][]string{}
 	for _, file := range files {
-		counter := 0
 		log.Info("Opening file ", file)
 		b, err := ioutil.ReadFile(file)
 		if err != nil {
 			log.Fatalf("Error reading file %s: %v", file, err)
 		}
+		counter := 0
 		matches := r.FindAllStringSubmatch(string(b), -1)
 		for _, lineMatch := range matches {
-			if len(totalBlockRoots) <= counter {
-				totalBlockRoots = append(totalBlockRoots, []string{})
+			if len(valuesCaptured) <= counter {
+				valuesCaptured = append(valuesCaptured, []string{})
 			}
-			totalBlockRoots[counter] = append(totalBlockRoots[counter], lineMatch[2])
+			valuesCaptured[counter] = append(valuesCaptured[counter], lineMatch[2])
 			counter++
 		}
 	}
@@ -93,7 +102,7 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 	testReports := []report.TestReport{}
 	stdout := []string{}
 	failed := false
-	for epochIndex, epochMatch := range totalBlockRoots {
+	for epochIndex, epochMatch := range valuesCaptured {
 		var firstEntry string
 		stdout = append(stdout, strings.Join(epochMatch, ","))
 		for nodeIndex, epochEntry := range epochMatch {
@@ -105,15 +114,15 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 					message := fmt.Sprintf("Epoch didn't match: %s vs %s", firstEntry, epochEntry)
 
 					testReports = append(testReports, report.TestReport{
-						Failed : true,
-						Name: name,
+						Failed:  true,
+						Name:    name,
 						Message: message,
 					})
 					failed = true
 				} else {
 					testReports = append(testReports, report.TestReport{
-						Failed : false,
-						Name: name,
+						Failed: false,
+						Name:   name,
 					})
 				}
 			}
