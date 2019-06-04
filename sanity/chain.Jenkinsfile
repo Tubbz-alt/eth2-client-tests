@@ -11,7 +11,7 @@ pipeline {
       steps {
         println "Set up ${params.chain}"
         sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
-        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain}:/var/output --file ./${params.chain}/testnetId"
+        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId"
         sleep params.setUpTime
         sh "docker ps"
       }
