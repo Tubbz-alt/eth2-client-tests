@@ -44,7 +44,7 @@ pipeline {
     stage('Tear down') {
       steps {
         println "Tear down ${params.chain}"
-        sh "~/bin/tester genesis destroy --testnetId `cat ./${params.chain}/testnetId`"
+        sh "~/bin/tester genesis destroy --testnet `cat ./${params.chain}/testnetId`"
       }
     }
 
