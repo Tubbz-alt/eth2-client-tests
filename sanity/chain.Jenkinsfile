@@ -24,12 +24,12 @@ pipeline {
       }
     }
 
-    stage('Test Prometheus reporting') {
-      steps {
-        println "Test prometheus reporting for ${params.chain}"
-        sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId`"
-      }
-    }
+//    stage('Test Prometheus reporting') {
+//      steps {
+//        println "Test prometheus reporting for ${params.chain}"
+//        sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId`"
+//      }
+//    }
 
     stage('Test Consensus') {
           steps {
