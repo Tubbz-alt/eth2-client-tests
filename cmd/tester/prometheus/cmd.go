@@ -3,8 +3,9 @@ package prometheus
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ethereum/eth2-client-tests/tester/genesis"
 	"log"
+
+	"github.com/ethereum/eth2-client-tests/tester/genesis"
 
 	"github.com/ethereum/eth2-client-tests/tester/prometheus"
 	"github.com/urfave/cli"

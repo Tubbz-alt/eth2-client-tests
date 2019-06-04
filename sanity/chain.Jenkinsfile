@@ -10,7 +10,7 @@ pipeline {
     stage('Set up') {
       steps {
         println "Set up ${params.chain}"
-        sh "rm -Rf ${params.chain};mkdir ${params.chain}"
+        sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
         sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --volume `pwd`/${params.chain}:/var/output --file ./${params.chain}/testnetId"
         sleep params.setUpTime
         sh "docker ps"
@@ -30,6 +30,16 @@ pipeline {
         sh "~/bin/tester prometheus up --testnet `cat ./${params.chain}/testnetId`"
       }
     }
+
+    stage('Test Consensus') {
+          steps {
+            println "Test prometheus reporting for ${params.chain}"
+            sh "~/bin/tester consensus --type finalized_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_block_root.xml"
+            sh "~/bin/tester consensus --type finalized_block_state --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-finalized_block_state.xml"
+            sh "~/bin/tester consensus --type justified_block_root --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_block_root.xml"
+            sh "~/bin/tester consensus --type justified_block_state --folder `pwd`/${params.chain} --blockchain ${params.chain} --testoutput reports/${params.chain}-justified_block_state.xml"
+          }
+        }
 
     stage('Tear down') {
       steps {

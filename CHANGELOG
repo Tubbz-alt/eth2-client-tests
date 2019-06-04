@@ -1,3 +1,5 @@
+* Add junit-style reporting for tests
+* Add a consensus test utility to the project.
 * Add a license and test badge to the project.
 * Clean up Makefile - make it work with a new checkout
 * Add basic circleci CI configuration

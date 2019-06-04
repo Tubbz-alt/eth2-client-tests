@@ -14,7 +14,7 @@ var (
 		Value: "prysm",
 	}
 	LogFolderFlag = cli.StringFlag{
-		Name: "logFolder",
+		Name:  "logFolder",
 		Usage: "/var/log/testnet123",
 		Value: "/var/log/testnet",
 	}

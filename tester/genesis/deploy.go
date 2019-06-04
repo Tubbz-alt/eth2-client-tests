@@ -9,7 +9,7 @@ import (
 )
 
 type TestnetParameter struct {
-	LogFolder          string `json:"logFolder"`
+	LogFolder           string `json:"logFolder"`
 	InstrumentationPort string `json:prometheusInstrumentationPort`
 }
 

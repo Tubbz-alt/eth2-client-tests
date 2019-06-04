@@ -4,5 +4,6 @@ package genesis
 var Images = map[string][]string{
 	"artemis":    []string{"artemis"},
 	"lighthouse": []string{"lighthouse"},
+	"lodestar":   []string{"lodestar"},
 	"prysm":      []string{"prysm"},
 }

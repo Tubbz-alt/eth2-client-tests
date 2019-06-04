@@ -4,7 +4,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/ethereum/eth2-client-tests/tester/genesis"
 	"github.com/urfave/cli"
@@ -38,11 +37,12 @@ var (
 				Description: `Deploys a new testnet to genesis`,
 				Action:      deployTestnet,
 				Flags: []cli.Flag{
-					FileOutputFlag,
 					BlockchainFlag,
+					FileOutputFlag,
+					LogFolderFlag,
 					NumberOfNodesFlag,
-					VolumesFlag,
 					PortsFlag,
+					VolumesFlag,
 				},
 			},
 		},
@@ -60,9 +60,7 @@ func deployTestnet(ctx *cli.Context) {
 	output := ctx.String(FileOutputFlag.Name)
 	volumes := ctx.StringSlice(VolumesFlag.Name)
 	ports := ctx.StringSlice(PortsFlag.Name)
-	if (logFolder != "") {
-		os.MkdirAll(logFolder, 0755)
-	}
+
 	genesis.DeployTestnet(blockchain, logFolder, genesis.Images[blockchain], volumes, ports, ctx.Int(NumberOfNodesFlag.Name), output)
 }
 
