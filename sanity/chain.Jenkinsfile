@@ -64,9 +64,10 @@ pipeline {
   }
 }
 
-//No NonCPS required
 def sendTxs(numberOfNodes) {
   for (int i = 0; i < numberOfNodes; i++) {
-    sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password ./${params.chain}/password${i} --keystore ./${params.chain}/key{i} --contract `cat ./${params.chain}/contract` --amount 3200"
+    for (int j = 0 ; j < 8 ; j++) {
+      sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password ./${params.chain}/password${i}-${j} --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200"
+    }
   }
 }
