@@ -12,10 +12,12 @@ RUN ./bazel-0.25.1-installer-linux-x86_64.sh
 RUN git clone https://github.com/prysmaticlabs/prysm.git
 WORKDIR /prysm/
 RUN bazel build //beacon-chain:beacon-chain
+RUN bazel build //validator:validator
 
 FROM ubuntu:18.04
 WORKDIR /
 COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_stripped/beacon-chain .
+COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_stripped/validator .
 
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils expect git git-extras software-properties-common \
