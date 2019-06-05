@@ -25,7 +25,7 @@ var (
 	MaxDepositAmount = cli.Int64Flag{
 		Name:  "max-deposit",
 		Usage: "Maximum deposit value allowed in contract",
-		Value: 3200,
+		Value: 3.2 * 1e9,
 	}
 	OutputFile = cli.StringFlag{
 		Name:  "output-file",

@@ -73,7 +73,7 @@ pipeline {
 def sendTxs(numberOfNodes) {
   for (int i = 0; i < numberOfNodes; i++) {
     for (int j = 1 ; j <= 8 ; j++) {
-      sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password password --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200"
+      sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password password --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200000000"
     }
   }
 }
