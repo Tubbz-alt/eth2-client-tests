@@ -18,7 +18,7 @@ pipeline {
         println "Set up ${params.chain}"
         sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract`"
         println "Send transactions to deposit contract"
-        sendTxs(${params.numNodes})
+        sendTxs("${params.numNodes}" as Integer)
         sleep params.setUpTime
         sh "docker ps"
       }
