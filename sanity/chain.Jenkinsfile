@@ -13,12 +13,13 @@ pipeline {
   stages {
     stage('Set up') {
       steps {
-        sh "sudo rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
+        sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
         println "Set up deposit contract"
         sh "~/bin/tester contract --priv-key " + PRIVATE_KEY + " --output-file ./${params.chain}/contract"
         println "Set up ${params.chain}"
-        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract`"
+        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract` --validatorsPassword password"
         println "Send transactions to deposit contract"
+        sh "sudo chmod 644 ./${params.chain}/key*"
         sendTxs("${params.numNodes}" as Integer)
         sleep params.setUpTime
         sh "docker ps"
@@ -68,7 +69,7 @@ pipeline {
 def sendTxs(numberOfNodes) {
   for (int i = 0; i < numberOfNodes; i++) {
     for (int j = 1 ; j <= 8 ; j++) {
-      sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password ./${params.chain}/password${i}-${j} --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200"
+      sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password password --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200"
     }
   }
 }

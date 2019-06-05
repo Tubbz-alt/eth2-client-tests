@@ -40,4 +40,9 @@ var (
 		Name:  "contract",
 		Usage: "Address of the deposit contract",
 	}
+	ValidatorsPassword = cli.StringFlag{
+		Name: "validatorsPassword",
+		Usage: "Password for validators keystore",
+		Value: "password",
+	}
 )
