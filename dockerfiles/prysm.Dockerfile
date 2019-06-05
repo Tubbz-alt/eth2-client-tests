@@ -17,7 +17,7 @@ RUN bazel build //validator:validator
 FROM ubuntu:18.04
 WORKDIR /
 COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_stripped/beacon-chain .
-COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_stripped/validator .
+COPY --from=0 /prysm/bazel-bin/beacon-chain/linux_amd64_pure_stripped/validator .
 
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils expect git git-extras software-properties-common \
