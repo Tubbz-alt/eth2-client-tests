@@ -10,9 +10,9 @@ import (
 
 type TestnetParameter struct {
 	LogFolder           string `json:"logFolder"`
-	InstrumentationPort string `json:prometheusInstrumentationPort`
-	Contract            string `json:contract`
-	ValidatorsPassword  string `json:validatorsPassword`
+	InstrumentationPort string `json:"prometheusInstrumentationPort"`
+	Contract            string `json:"contract"`
+	ValidatorsPassword  string `json:"validatorsPassword"`
 }
 
 type TestnetResource struct {
