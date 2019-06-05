@@ -5,7 +5,7 @@ pipeline {
     string(name: 'chain', defaultValue: 'prysm', description: 'Blockchain to run')
     string(name: 'numNodes', defaultValue: '4', description: 'Number of nodes')
     string(name: 'setUpTime', defaultValue: '600', description: 'Seconds to wait before testing testnet')
-    credentials(name: 'privateKey', defaultValue: '', description: 'Goerli private key')
+    credentials(name: 'privateKey', defaultValue: '', description: 'Goerli private key', credentialType: "Secret text", required: true)
   }
   stages {
     stage('Set up') {
