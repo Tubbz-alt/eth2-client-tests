@@ -21,6 +21,7 @@ pipeline {
         println "Wait for build to finish"
         sh "~/bin/tester genesis build-status --testnet `cat ./${params.chain}/testnetId`"
         println "Send transactions to deposit contract"
+        sleep 10
         sh "sudo chmod -R 644 ./${params.chain}/key*"
         sh "sudo chmod 755 ./${params.chain}/key*"
         sendTxs("${params.numNodes}" as Integer)
