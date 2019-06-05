@@ -22,6 +22,7 @@ pipeline {
         sh "~/bin/tester genesis build-status --testnet `cat ./${params.chain}/testnetId`"
         println "Send transactions to deposit contract"
         sh "sudo chmod -R 644 ./${params.chain}/key*"
+        sh "sudo chmod 755 ./${params.chain}/key*"
         sendTxs("${params.numNodes}" as Integer)
         sleep params.setUpTime
         sh "docker ps"
