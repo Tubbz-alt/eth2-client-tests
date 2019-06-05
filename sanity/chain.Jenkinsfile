@@ -12,7 +12,7 @@ pipeline {
       steps {
         sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
         println "Set up deposit contract"
-        sh "build/bin/tester contract --priv-key ${params.privateKey} --output-file ./${params.chain}/contract"
+        sh "~/bin/tester contract --priv-key ${params.privateKey} --output-file ./${params.chain}/contract"
         println "Set up ${params.chain}"
         sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract`"
         println "Send transactions to deposit contract"
