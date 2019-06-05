@@ -6,12 +6,19 @@ pipeline {
     string(name: 'numNodes', defaultValue: '4', description: 'Number of nodes')
     string(name: 'setUpTime', defaultValue: '600', description: 'Seconds to wait before testing testnet')
   }
+  environment {
+          PRIVATE_KEY     = credentials('goerli-private-key')
+  }
   stages {
     stage('Set up') {
       steps {
-        println "Set up ${params.chain}"
         sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
-        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId"
+        println "Set up deposit contract"
+        sh "build/bin/tester contract --priv-key $PRIVATE_KEY --output-file ./${params.chain}/contract"
+        println "Set up ${params.chain}"
+        sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract`"
+        println "Send transactions to deposit contract"
+        sendTxs(${params.numNodes})
         sleep params.setUpTime
         sh "docker ps"
       }
@@ -53,5 +60,12 @@ pipeline {
     always {
       junit 'reports/*.xml'
     }
+  }
+}
+
+//No NonCPS required
+def sendTxs(numberOfNodes) {
+  for (int i = 0; i < numberOfNodes; i++) {
+    sh "~/bin/tester sendTx --priv-key $PRIVATE_KEY --password ./${params.chain}/password${i} --keystore ./${params.chain}/key{i} --contract `cat ./${params.chain}/contract` --amount 3200"
   }
 }

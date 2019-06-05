@@ -11,6 +11,7 @@ import (
 type TestnetParameter struct {
 	LogFolder           string `json:"logFolder"`
 	InstrumentationPort string `json:prometheusInstrumentationPort`
+	Contract            string `json:contract`
 }
 
 type TestnetResource struct {
@@ -29,7 +30,7 @@ type Testnet struct {
 	Params     TestnetParameter  `json:"params"`
 }
 
-func DeployTestnet(blockchain string, logFolder string, images []string, volumes []string, ports []string, nodes int, output string) {
+func DeployTestnet(blockchain string, logFolder string, images []string, volumes []string, ports []string, nodes int, contract string, output string) {
 	mountPoint := ""
 	if logFolder != "" {
 		mountPoint = "/var/output"
@@ -46,6 +47,7 @@ func DeployTestnet(blockchain string, logFolder string, images []string, volumes
 		TestnetParameter{
 			mountPoint,
 			"8088",
+			contract,
 		},
 	}
 	json, err := json.Marshal(testNet)

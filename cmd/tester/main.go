@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/ethereum/eth2-client-tests/cmd/tester/deposit"
+
 	"github.com/ethereum/eth2-client-tests/cmd/tester/consensus"
 
 	"github.com/ethereum/eth2-client-tests/cmd/tester/prometheus"
@@ -23,6 +25,8 @@ func main() {
 		network.NetworkCommand,
 		prometheus.PrometheusCommand,
 		consensus.ConsensusTestCommand,
+		deposit.DepositContractCommand,
+		deposit.SendDepositTxCommand,
 	}
 	err := app.Run(os.Args)
 	if err != nil {

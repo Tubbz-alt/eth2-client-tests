@@ -43,6 +43,7 @@ var (
 					NumberOfNodesFlag,
 					PortsFlag,
 					VolumesFlag,
+					ContractFlag,
 				},
 			},
 		},
@@ -60,8 +61,9 @@ func deployTestnet(ctx *cli.Context) {
 	output := ctx.String(FileOutputFlag.Name)
 	volumes := ctx.StringSlice(VolumesFlag.Name)
 	ports := ctx.StringSlice(PortsFlag.Name)
+	contract := ctx.String(ContractFlag.Name)
 
-	genesis.DeployTestnet(blockchain, logFolder, genesis.Images[blockchain], volumes, ports, ctx.Int(NumberOfNodesFlag.Name), output)
+	genesis.DeployTestnet(blockchain, logFolder, genesis.Images[blockchain], volumes, ports, ctx.Int(NumberOfNodesFlag.Name), contract, output)
 }
 
 func testGenesisAvailable(ctx *cli.Context) {

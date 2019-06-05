@@ -36,4 +36,8 @@ var (
 		Name:  "testnet",
 		Usage: "ID of the testnet to destroy",
 	}
+	ContractFlag = cli.StringFlag{
+		Name:  "contract",
+		Usage: "Address of the deposit contract",
+	}
 )

@@ -2,8 +2,9 @@ package network
 
 import (
 	"fmt"
-	"github.com/ethereum/eth2-client-tests/tester/report"
 	"log"
+
+	"github.com/ethereum/eth2-client-tests/tester/report"
 
 	"github.com/ethereum/eth2-client-tests/tester/docker"
 

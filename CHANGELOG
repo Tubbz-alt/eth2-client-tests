@@ -1,3 +1,4 @@
+* add deposit contract and transaction
 * Nicer stdout output
 * Add junit-style reporting for Prometheus and network connectivity
 * Add junit-style reporting for tests

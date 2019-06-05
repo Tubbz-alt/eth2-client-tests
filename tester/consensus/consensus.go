@@ -105,7 +105,7 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 	colSizes := []int{}
 	for epochIndex, epochMatch := range valuesCaptured {
 		var firstEntry string
-		stdout = append(stdout, "|" + strings.Join(epochMatch, "|") + "|")
+		stdout = append(stdout, "|"+strings.Join(epochMatch, "|")+"|")
 		for nodeIndex, epochEntry := range epochMatch {
 			if nodeIndex >= len(colSizes) {
 				colSizes = append(colSizes, len(epochEntry))
@@ -142,7 +142,7 @@ func checkLogs(exprCaptureRegexp string, files []string, testReportOutput string
 	for index, colSize := range colSizes {
 		sum += colSize
 		filename := files[index]
-		spaces := colSize - len(filename) -1
+		spaces := colSize - len(filename) - 1
 		if spaces < 0 {
 			spaces = 0
 		}
