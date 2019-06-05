@@ -28,7 +28,7 @@ var (
 		Name:        "sendTx",
 		Usage:       "Send transaction to deposit contract",
 		Description: `Sends tx to deposit contract`,
-		Action:      deployDepositContract,
+		Action:      sendDepositTx,
 		Flags: []cli.Flag{
 			HttpPath,
 			Password,
