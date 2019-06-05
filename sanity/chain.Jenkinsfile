@@ -60,13 +60,14 @@ pipeline {
   post {
     always {
       junit 'reports/*.xml'
+      archiveArtifacts artifacts: './${params.chain}/*', fingerprint: true
     }
   }
 }
 
 def sendTxs(numberOfNodes) {
   for (int i = 0; i < numberOfNodes; i++) {
-    for (int j = 0 ; j < 8 ; j++) {
+    for (int j = 1 ; j <= 8 ; j++) {
       sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password ./${params.chain}/password${i}-${j} --keystore ./${params.chain}/key${i}-${j} --contract `cat ./${params.chain}/contract` --amount 3200"
     }
   }
