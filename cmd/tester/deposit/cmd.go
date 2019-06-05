@@ -46,7 +46,7 @@ func deployDepositContract(cli *cli.Context) {
 		cli.Int64(DepositsForChainStart.Name),
 		cli.Int64(MinDepositAmount.Name),
 		cli.Int64(MaxDepositAmount.Name),
-		0)
+		1)
 	output := cli.String(OutputFile.Name)
 	if output != "" {
 		err := ioutil.WriteFile(output, []byte(contractAddress), 0644)
