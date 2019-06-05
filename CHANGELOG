@@ -1,3 +1,4 @@
+* Wait for build to finish before proceeding to sending transactions
 * add deposit contract and transaction
 * Nicer stdout output
 * Add junit-style reporting for Prometheus and network connectivity

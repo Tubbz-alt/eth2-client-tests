@@ -18,6 +18,8 @@ pipeline {
         sh "~/bin/tester contract --priv-key " + PRIVATE_KEY + " --output-file ./${params.chain}/contract"
         println "Set up ${params.chain}"
         sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract` --validatorsPassword password"
+        println "Wait for build to finish"
+        sh "~/bin/tester genesis build-status --testnet `cat ./${params.chain}/testnetId`"
         println "Send transactions to deposit contract"
         sh "sudo chmod 644 ./${params.chain}/key*"
         sendTxs("${params.numNodes}" as Integer)
