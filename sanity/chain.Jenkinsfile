@@ -7,12 +7,15 @@ pipeline {
     string(name: 'setUpTime', defaultValue: '600', description: 'Seconds to wait before testing testnet')
     credentials(name: 'privateKey', defaultValue: '', description: 'Goerli private key', credentialType: "Secret text", required: true)
   }
+  environment {
+          PRIVATE_KEY = credentials("${params.privateKey}")
+  }
   stages {
     stage('Set up') {
       steps {
         sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
         println "Set up deposit contract"
-        sh "~/bin/tester contract --priv-key ${params.privateKey} --output-file ./${params.chain}/contract"
+        sh "~/bin/tester contract --priv-key " + PRIVATE_KEY + " --output-file ./${params.chain}/contract"
         println "Set up ${params.chain}"
         sh "~/bin/tester genesis testnet --blockchain ${params.chain} --numNodes ${params.numNodes} --logFolder `pwd`/${params.chain} --file ./${params.chain}/testnetId --contract `cat ./${params.chain}/contract`"
         println "Send transactions to deposit contract"
@@ -64,6 +67,6 @@ pipeline {
 //No NonCPS required
 def sendTxs(numberOfNodes) {
   for (int i = 0; i < numberOfNodes; i++) {
-    sh "~/bin/tester sendTx --priv-key ${params.privateKey} --password ./${params.chain}/password${i} --keystore ./${params.chain}/key{i} --contract `cat ./${params.chain}/contract` --amount 3200"
+    sh "~/bin/tester sendTx --priv-key " + PRIVATE_KEY + " --password ./${params.chain}/password${i} --keystore ./${params.chain}/key{i} --contract `cat ./${params.chain}/contract` --amount 3200"
   }
 }
