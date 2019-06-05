@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Set up') {
       steps {
-        sh "rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
+        sh "sudo rm -Rf ${params.chain};mkdir ${params.chain};rm -Rf reports;mkdir -p reports"
         println "Set up deposit contract"
         sh "~/bin/tester contract --priv-key " + PRIVATE_KEY + " --output-file ./${params.chain}/contract"
         println "Set up ${params.chain}"
@@ -21,7 +21,7 @@ pipeline {
         println "Wait for build to finish"
         sh "~/bin/tester genesis build-status --testnet `cat ./${params.chain}/testnetId`"
         println "Send transactions to deposit contract"
-        sh "sudo chmod 644 ./${params.chain}/key*"
+        sh "sudo chmod -R 644 ./${params.chain}/key*"
         sendTxs("${params.numNodes}" as Integer)
         sleep params.setUpTime
         sh "docker ps"
