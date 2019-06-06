@@ -65,7 +65,7 @@ pipeline {
   post {
     always {
       junit 'reports/*.xml'
-      archiveArtifacts artifacts: "./${params.chain}/**"
+      archiveArtifacts artifacts: "./${params.chain}/*.log"
     }
   }
 }
